@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+{{ post.post_title }}
+{% endblock %}
+
+
+{% block page_header %}
+<!-- ----------------------------- Page Header ---------------------------- -->
+
+{% if post.post_img %}
+<header class="intro-header" style="background-image: url({{ post.post_img.url }})">
+    <div class="blackout">
+        {% else %}
+        <header class="intro-header">
+            {% endif %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                        <div class="post-heading">
+                            <h1>{{ post.post_title }}</h1>
+                            <br>
+                            <span class="meta">Написано для <a
+                                    href="{{ BASE_DIR }}">Latina</a> {{ post.post_created }}<br>
+                                    Категория: <a href="{{ post.post_category.get_absolute_url }}">
+                                    {{ post.post_category }}</a></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% if post.post_img %}
+    </div>
+    {% endif %}
+</header>
+{% endblock %}
+
+{% block content %}
+<!-- ----------------------------- Page Content ---------------------------- -->
+<article>
+    <div class="container">
+        <div class="row">
+            <!-- ----------------------------- Page Breadcrumbs ---------------------------- -->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/blog">Блог</a></li>
+                {% with cat=post.post_category %}
+                {% if cat.category_parent %}
+                <li class="breadcrumb-item">
+                    <a href="{{cat.category_parent.get_bsolute_url}}">{{cat.category_parent.category_name}}</a>
+                </li>
+                {% endif %}
+                <li class="breadcrumb-item active">{{cat.category_name}}</li>
+                {% endwith %}
+            </ol>
+            <!-- ----------------------------- End Page Breadcrumbs ---------------------------- -->
+
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                {% autoescape off %}{{ post.post_description }}{% endautoescape %}
+            </div>
+        </div>
+    </div>
+</article>
+<!-- ----------------------------- End Page Content ---------------------------- -->
+
+<div class="entry-pagination">
+    <ul class="pager">
+        {% with prev=post.get_prev %}
+        {% if prev %}
+        <li><a href="{{ prev.get_absolute_url }}">← предыдущий</a></li>
+        {% endif %}
+        {% endwith %}
+        {% with next=post.get_next %}
+        {% if next %}
+        <li><a href="{{ next.get_absolute_url }}">следующий →</a></li>
+        {% endif %}
+        {% endwith %}
+    </ul>
+    <!--close pager-->
+</div>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>{% block title %}Riviera Tirreno{% endblock %}</title>
+
+  {% block style %}
+  <!-- Styles -->
+  <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+  <link rel="stylesheet" href="{% static "css/clean-blog.css" %}">
+  {% endblock %}
+
+  {% block fonts %}
+  <!-- Custom Fonts -->
+  <link href="{% static "font-awesome/css/font-awesome.min.css" %}" rel="stylesheet" type="text/css">
+  <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+  {% endblock %}
+
+</head>
+<body>
+    {% include "base-navigation.html" %}
+    {% include "page-header.html" %}
+    {% include "base-content.html" %}
+    {% include "base-footer.html" %}
+<!-- jQuery -->
+<script src= "{% static "js/jquery-2.1.4.min.js" %}"></script>
+<script src= "{% static "js/bootstrap.min.js" %}"></script>
+
+<!-- Contact Form JavaScript -->
+<script src="{% static "js_clean_blog/jqBootstrapValidation.js" %}"></script>
+<script src="{% static "js_clean_blog/contact_me.js" %}"></script>
+
+<!-- Theme JavaScript -->
+<script src="{% static "js_clean_blog//clean-blog.min.js" %}"></script>
+
+
+</body>
+
+</html>

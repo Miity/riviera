@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}
+{% if category %} {{ category.name }} {% else %} Блог {% endif %}
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <h1>{% if category %}{{ category.name }}{% else %}Блог{% endif %}</h1>
+            <hr>
+            {% for post in posts %}
+            <div class="post-preview">
+
+                {% if post.post_img %}
+                <a href="{{ post.get_absolute_url }}" class="post-img">
+                    <div class="post-img" style="background: url({{ post.post_img.url }}) no-repeat center center">
+                        <div class="post-title">
+                            {{ post.post_title }}
+                        </div>
+                    </div>
+                </a>
+                {% else %}
+                <div class="post-title">
+                    <a href="{{ post.get_absolute_url }}">{{ post.post_title }}</a>
+                </div>
+                {% endif %}
+
+                <a href="{{ post.get_absolute_url }}">
+                    <div class="post-subtitle"> {% autoescape off %}{% if post.post_short_description %}
+                        {{ post.post_short_description }} {% endif %}{% endautoescape %}
+                    </div>
+                </a>
+
+                <div class="post-meta">Написано для <a href="{{ BASE_DIR }}">Latina</a> {{ post.post_posted }}<br>
+                    Категория: <a href="{{ post.post_category.get_absolute_url }}">{{ post.post_category }}</a>
+                </div>
+            </div>
+            <hr>
+            {% endfor %}
+
+            <!-- Pager -->
+            <ul class="pager">
+                {% if posts.has_previous %}
+                <li class="previous">
+                    <a href="?page={{ posts.previous_page_number }}">&larr; Назад</a>
+                </li>
+                {% endif %}
+                {% if posts.has_next %}
+                <li class="next">
+                    <a href="?page={{ posts.next_page_number }}">Вперед &rarr;</a>
+                </li>
+                {% endif %}
+            </ul>
+        </div>
+
+        <!-- Category -->
+        <div class="col-sm-3 col-sm-offset-1">
+            <h1>Категории</h1>
+            <ul>
+                <li {% if not category %} class="selected" {% endif %}>
+                    <a href="{% url "blog:BlogList" %}">Все</a>
+                </li>
+                {% for cat in categories %}
+                <li {% if category.categoty_slug == cat.category_slug %} class="selected" {% endif %}>
+                    <a href="{{ cat.get_absolute_url }}">{{ cat.category_name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
