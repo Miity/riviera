@@ -1,4 +1,5 @@
 from django.db import models
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 
@@ -29,8 +30,8 @@ class Post(models.Model):
     post_category = models.ForeignKey(Category, related_name='post', verbose_name="Категория")
     post_title = models.CharField(max_length=200, db_index=True, verbose_name="Название")
     post_slug = models.SlugField(max_length=200, db_index=True, verbose_name="URL-название")
-    post_img = models.ImageField(upload_to='blog_titels/', blank=True, null=True, verbose_name="Миниатюра")
-    post_description = models.TextField(blank=True, verbose_name="Описание")
+    post_img = models.ImageField(upload_to='blog_titels/', blank=True, null=True, verbose_name="Изображение")
+    post_description = RichTextUploadingField(blank=True, verbose_name="Описание")
     post_short_description = models.TextField(max_length=300, blank=True, null=True, verbose_name="Короткое описание")
     post_available = models.BooleanField(default=True, verbose_name="Опубликованно")
     post_posted = models.DateField(auto_now_add=True, verbose_name="Дата публикации")
@@ -64,8 +65,12 @@ class Post(models.Model):
 
     def bit(self):
         if self.post_img:
-            return '<img src="/media/{}" width="100px"/>'.format(self.post_img)
+            return u'<img src="/media/{}" width="100px"/>'.format(self.post_img)
         else:
-            return '(none)'
-    bit.short_description = 'Изображение'
+            return u'(none)'
+    bit.short_description = u'Изображение'
     bit.allow_tags = True
+
+
+
+
