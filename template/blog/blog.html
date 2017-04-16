@@ -35,7 +35,7 @@
                     </div>
                 </a>
 
-                <div class="post-meta">Написано для <a href="{{ BASE_DIR }}">Latina</a> {{ post.post_posted }}<br>
+                <div class="post-meta">Написано для <a href="{{ BASE_DIR }}">Riviera-Tirreno</a> {{ post.post_posted }}<br>
                     Категория: <a href="{{ post.post_category.get_absolute_url }}">{{ post.post_category }}</a>
                 </div>
             </div>
@@ -62,7 +62,7 @@
             <h1>Категории</h1>
             <ul>
                 <li {% if not category %} class="selected" {% endif %}>
-                    <a href="{% url "blog:BlogList" %}">Все</a>
+                    <a href="{% url "firstsite:BlogList" %}">Все</a>
                 </li>
                 {% for cat in categories %}
                 <li {% if category.categoty_slug == cat.category_slug %} class="selected" {% endif %}>
