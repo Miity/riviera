@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
-from blog import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.blog, name='BlogList'),
-    url(r'^(?P<category_slug>[-\w]+)/$', views.blog, name='BlogListByCategory'),
-    url(r'^(?P<id>\d+)/$', views.post_detail, name='PostDetail'),
+    url(r'^', include('blog.urls',  namespace='blog')),
+    url(r'^blog/', include('blog.urls',  namespace='blog')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
