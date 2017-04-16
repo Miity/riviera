@@ -14,7 +14,7 @@ class Category(models.Model):
                                         blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('blog:BlogListByCategory', args=[self.category_slug,])
+        return reverse('firstsite:BlogListByCategory', args=[self.category_slug,])
 
     class Meta():
         db_table = 'category'
@@ -46,7 +46,7 @@ class Post(models.Model):
         return self.post_title
 
     def get_absolute_url(self):
-        return reverse('blog:PostDetail', args=[self.id])
+        return reverse('firstsite:PostDetail', args=[self.id])
 
     def get_next(self):
         try:
