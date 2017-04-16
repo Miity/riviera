@@ -62,7 +62,7 @@
             <h1>Категории</h1>
             <ul>
                 <li {% if not category %} class="selected" {% endif %}>
-                    <a href="{% url "Blog:BlogList" %}">Все</a>
+                    <a href="{% url "blog:BlogList" %}">Все</a>
                 </li>
                 {% for cat in categories %}
                 <li {% if category.categoty_slug == cat.category_slug %} class="selected" {% endif %}>
